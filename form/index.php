@@ -9,7 +9,7 @@
 <body>
 <br><br>
     <div class="container-fluid">
-        <form action="" method="post">
+        <form id="form" name="form" action="FormController.php" method="POST">
             <div class="row justify-content-md-center ">
                 <div class="col-4 bg-light" style="border-radius: 5px;">
                     <div class="mb-3">
@@ -28,12 +28,13 @@
                         <label for="phone_number" class="form-label">Telefono</label>
                         <input type="number" class="form-control" name="phone_number" id="phone_number" placeholder="Telefono" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <a onclick="validaFormulario()" class="btn btn-primary">Enviar</a>
                 </div>
             </div>
         </form>
     </div>
 
+    <script src="js/validation.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
