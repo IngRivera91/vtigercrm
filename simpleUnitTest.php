@@ -85,6 +85,72 @@ try {
     }
 }
 
+$CustomerConekta = new ApiConektaCustomers();
+
+$customerId = "";
+
+try {
+    $customerId = $CustomerConekta->createCustomer('Unit Test', 'test@test.com', '1112223344');
+    DPrint('success');
+} catch (Exception $e) {
+//    DPrint($e->getMessage());
+    DPrint('failure');
+
+}
+
+try {
+    $result = $CustomerConekta->customerExist($customerId);
+    if ($result) {
+        DPrint('success');
+    }else{
+        DPrint('failure');
+    }
+} catch (Exception $e) {
+//    DPrint($e->getMessage());
+    DPrint('failure');
+
+}
+
+try {
+    $CustomerConekta->updateCustomer($customerId, 'Edit Test', 'test2@test.com', '1912823344');
+    DPrint('success');
+} catch (Exception $e) {
+//    DPrint($e->getMessage());
+    DPrint('failure');
+
+}
+
+
+ConfigApiConekta::$bearerToken = "badTokens987654321";
+$CustomerConekta = new ApiConektaCustomers();
+
+try {
+    $customerId = $CustomerConekta->createCustomer('Unit Test', 'test@test.com', '1112223344');
+    DPrint('failure');
+} catch (Exception $e) {
+//    DPrint($e->getMessage());
+    if ($e->getMessage() === "Error al registrar en conekta") {
+        DPrint('success');
+    }else{
+        DPrint('failure');
+    }
+
+}
+
+try {
+    $CustomerConekta->updateCustomer($customerId, 'Edit Test', 'test2@test.com', '1912823344');
+    DPrint('failure');
+} catch (Exception $e) {
+//    DPrint($e->getMessage());
+    if ($e->getMessage() === "Error al actualizar en conekta") {
+        DPrint('success');
+    }else{
+        DPrint('failure');
+    }
+
+}
+
+
 
 
 
