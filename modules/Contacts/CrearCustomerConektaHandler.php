@@ -1,6 +1,7 @@
 <?php
 
 require_once('include/utils/utils.php');
+include_once dirname(__DIR__,2).'/conekta/ApiConektaCustomers.php';
 
 class CrearCustomerConektaHandler extends VTEventHandler
 {
@@ -17,15 +18,23 @@ class CrearCustomerConektaHandler extends VTEventHandler
 //            $phone = $entity->get('phone');
 //
 //            if ($otherPhone === "") {
-//                $otherPhone = $ConektaCustomer->createCustomer($firstName, $email, $phone);
-//                $entity->set('otherphone', $otherPhone);
+//                try {
+//                    $otherPhone = $ConektaCustomer->createCustomer($firstName, $email, $phone);
+//                    $entity->set('otherphone', $otherPhone);
+//                } catch (Exception $e) {
+//                    throw new Exception($e->getMessage());
+//                }
 //            }
 //
 //            if ($otherPhone !== "") {
 //                if ($ConektaCustomer->customerExist($otherPhone)) {
-//                    $ConektaCustomer->updateCustomer($otherPhone, $firstName, $email, $phone);
+//                    try {
+//                        $ConektaCustomer->updateCustomer($otherPhone, $firstName, $email, $phone);
+//                    } catch (Exception $e) {
+//                        throw new Exception($e->getMessage());
+//                    }
 //                }else{
-//                    throw new Exception('URL cannot be empty');
+//                    throw new Exception('No existe un cliente con el ID ' . $otherPhone);
 //                }
 //            }
 

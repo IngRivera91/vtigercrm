@@ -55,7 +55,7 @@ class ApiConektaCustomers
         $headers = [
             'content-type' => 'application/x-www-form-urlencoded',
             'accept' => 'application/vnd.conekta-v2.1.0+json',
-            'Authorization' => 'Bearer key_kTs1Z5cM9rfEh7BQ1Em4usx'
+            'Authorization' => 'Bearer '.$this->bearerToken
         ];
 
         $options = [
@@ -82,7 +82,7 @@ class ApiConektaCustomers
         $headers = [
             'content-type' => 'application/json',
             'accept' => 'application/vnd.conekta-v2.1.0+json',
-            'Authorization' => 'Bearer key_kTs1Z5cM9rfEh7BQ1Em4usx'
+            'Authorization' => 'Bearer '.$this->bearerToken
         ];
 
         $request = new GuzzleHttp\Psr7\Request('GET', "{$this->url}/customers/{$otherPhone}", $headers);
