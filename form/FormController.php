@@ -3,13 +3,15 @@
 require dirname(__DIR__).'/vtapi/VtapiContacts.php';
 
 class FormController {
+    private $debugging;
     public $nombre;
     public $apellido;
     public $correo;
     public $telefono;
 
-    public function __construct($data)
+    public function __construct($data, $debugging = false)
     {
+        $this->debugging = $debugging;
         $this->nombre = $data['first_name'];
         $this->apellido = $data['last_name'];
         $this->correo = $data['email'];
@@ -28,11 +30,19 @@ class FormController {
                 $this->telefono
             );
         } catch (Exception $e) {
-            print_r($e->getMessage());
-            ;
+            if ($this->debugging) {
+                return $e;
+            }
+            header('Location: '.ConfigurationVtapi::$url."/form/index.php?create=failure");
+            exit;
         }
 
-        print_r('contacto creado'.ConfigurationVtapi::$url);
+        if ($this->debugging) {
+            return true;
+        }
+
+        header('Location: '.ConfigurationVtapi::$url."/form/index.php?create=success");
+        exit;
     }
 
 }

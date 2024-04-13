@@ -1,3 +1,8 @@
+<?php
+$typeAlert = "danger";
+$messageAlert = "Error al crear contacto.";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +12,20 @@
     <title>External Form</title>
 </head>
 <body>
-<br><br>
+<br>
+<?php if (isset($_GET['create'])){ ?>
+<?php if($_GET['create'] == "success") $typeAlert = "success" ?>
+<?php if($_GET['create'] == "success") $messageAlert = "Contacto Creado." ?>
+    <div class="row justify-content-md-center">
+        <div class="col-4">
+            <div class="alert alert-<?php echo $typeAlert ?> alert-dismissible fade show" role="alert">
+                <?php echo $messageAlert ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+<?php } // end if (isset($_GET['mensaje'])) ?>
+<br>
     <div class="container-fluid">
         <form id="form" name="form" action="FormController.php" method="POST">
             <div class="row justify-content-md-center ">
