@@ -53,6 +53,10 @@ class VtapiConnection
             return false;
         }
 
+        if (isset(json_decode($response->getBody())->error)) {
+            return false;
+        }
+
         $this->token = json_decode($response->getBody())->result->token;
 
         return true;
@@ -80,6 +84,10 @@ class VtapiConnection
         try {
             $response = $client->send($request, $options);
         } catch (GuzzleHttp\Exception\GuzzleException $e) {
+            return false;
+        }
+
+        if (isset(json_decode($response->getBody())->error)) {
             return false;
         }
 

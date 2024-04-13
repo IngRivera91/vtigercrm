@@ -21,7 +21,7 @@ class VtapiContacts
             $this->sessionName = $connection->getSessionName();
             $this->userId = $connection->getUserId();
         } catch (Exception $e) {
-            throw new Exception($e->getPrevious()->getMessage());
+            throw new Exception($e->getMessage());
         }
 
     }
@@ -51,6 +51,10 @@ class VtapiContacts
             $response = $client->send($request, $options);
         } catch (GuzzleHttp\Exception\GuzzleException $e) {
             throw new Exception('Unable to create new contact: ' . $e->getMessage(), 0, $e);
+        }
+
+        if (isset(json_decode($response->getBody())->error)) {
+            throw new Exception('Unable to create new contact: ' . json_decode($response->getBody())->error->code);
         }
 
     }
