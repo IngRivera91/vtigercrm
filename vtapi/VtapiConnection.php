@@ -5,6 +5,7 @@ require_once dirname(__DIR__).'/config.vtapi.php';
 
 class VtapiConnection
 {
+    private $client;
     private $url;
     private $username;
     private $token;
@@ -17,6 +18,7 @@ class VtapiConnection
      */
     public function __construct()
     {
+        $this->client = new GuzzleHttp\Client();
         $this->username = ConfigurationVtapi::$username;
         $this->accessKey = ConfigurationVtapi::$accessKey;
         $this->url = ConfigurationVtapi::$url;
@@ -43,12 +45,10 @@ class VtapiConnection
 
     private function generateToken(): bool
     {
-        $client = new GuzzleHttp\Client();
-
         $request = new GuzzleHttp\Psr7\Request('GET', "{$this->url}/webservice.php?operation=getchallenge&username={$this->username}");
 
         try {
-            $response = $client->send($request);
+            $response = $this->client->send($request);
         } catch (GuzzleHttp\Exception\GuzzleException $e) {
             return false;
         }
@@ -65,8 +65,6 @@ class VtapiConnection
 
     private function generateSessionNameAndUserId(): string
     {
-        $client = new GuzzleHttp\Client();
-
         $headers = [
             'Content-Type' => 'application/x-www-form-urlencoded'
         ];
@@ -82,7 +80,7 @@ class VtapiConnection
         $request = new GuzzleHttp\Psr7\Request('POST', "{$this->url}/webservice.php", $headers);
 
         try {
-            $response = $client->send($request, $options);
+            $response = $this->client->send($request, $options);
         } catch (GuzzleHttp\Exception\GuzzleException $e) {
             return false;
         }
