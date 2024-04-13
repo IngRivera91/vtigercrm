@@ -1,5 +1,5 @@
 <?php
-class ConfigurationVtapi
+class ExampleConfigurationVtapi
 {
     public static $username = "admin";
     public static $accessKey = "";
