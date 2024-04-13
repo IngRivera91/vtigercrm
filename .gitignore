@@ -1,4 +1,4 @@
 .idea/*
 vendor/*
-config.vtap.php
+config.vtapi.php
 test/templates_c/*
