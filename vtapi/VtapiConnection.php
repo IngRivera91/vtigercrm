@@ -1,18 +1,16 @@
 <?php
 
-use GuzzleHttp\Exception\GuzzleException;
-
-require dirname(__DIR__).'/vendor/autoload.php';
-require dirname(__DIR__).'/config.vtapi.php';
+require_once dirname(__DIR__).'/vendor/autoload.php';
+require_once dirname(__DIR__).'/config.vtapi.php';
 
 class VtapiConnection
 {
-    private $client;
-    private $token;
-    private $sessionName;
-    private $username;
-    private $accessKey;
     private $url;
+    private $username;
+    private $token;
+    private $accessKey;
+    private $sessionName;
+    private $userId;
 
     /**
      * @throws Exception
@@ -27,7 +25,7 @@ class VtapiConnection
             throw new Exception('Error trying to generate the Token');
         }
 
-        if (!$this->generateSessionName()) {
+        if (!$this->generateSessionNameAndUserId()) {
             throw new Exception('Error trying to generate the SessionName');
         }
 
@@ -38,15 +36,20 @@ class VtapiConnection
         return $this->sessionName;
     }
 
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
     private function generateToken(): bool
     {
         $client = new GuzzleHttp\Client();
 
-        $request = new GuzzleHttp\Psr7\Request('GET', "{$this->url}?operation=getchallenge&username={$this->username}");
+        $request = new GuzzleHttp\Psr7\Request('GET', "{$this->url}/webservice.php?operation=getchallenge&username={$this->username}");
 
         try {
             $response = $client->send($request);
-        } catch (GuzzleException $e) {
+        } catch (GuzzleHttp\Exception\GuzzleException $e) {
             return false;
         }
 
@@ -56,7 +59,7 @@ class VtapiConnection
 
     }
 
-    private function generateSessionName(): string
+    private function generateSessionNameAndUserId(): string
     {
         $client = new GuzzleHttp\Client();
 
@@ -72,15 +75,16 @@ class VtapiConnection
             ]
         ];
 
-        $request = new GuzzleHttp\Psr7\Request('POST', "{$this->url}", $headers);
+        $request = new GuzzleHttp\Psr7\Request('POST', "{$this->url}/webservice.php", $headers);
 
         try {
             $response = $client->send($request, $options);
-        } catch (GuzzleException $e) {
+        } catch (GuzzleHttp\Exception\GuzzleException $e) {
             return false;
         }
 
         $this->sessionName = json_decode($response->getBody())->result->sessionName;
+        $this->userId = json_decode($response->getBody())->result->userId;
 
         return true;
     }
