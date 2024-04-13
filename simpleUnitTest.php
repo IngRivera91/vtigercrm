@@ -73,6 +73,18 @@ try {
     DPrint('failure');
 }
 
+try {
+    $contacts->createNewContact('', '','','');
+    DPrint('failure');
+} catch (Exception $e) {
+//    DPrint($e->getMessage());
+    if ($e->getMessage() === "Unable to create new contact: MANDATORY_FIELDS_MISSING") {
+        DPrint('success');
+    }else{
+        DPrint('failure');
+    }
+}
+
 
 
 
