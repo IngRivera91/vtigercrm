@@ -48,6 +48,7 @@ try {
 }
 
 $accessKey = ConfigurationVtapi::$accessKey;
+
 try {
     ConfigurationVtapi::$accessKey = "bad_access_key";
     $connection = new VtapiConnection();
@@ -60,6 +61,16 @@ try {
     }else{
         DPrint('failure');
     }
+}
+
+$contacts = new VtapiContacts();
+
+try {
+    $contacts->createNewContact('tester', 'admin','adm@adm.amd','1112223344');
+    DPrint('success');
+} catch (Exception $e) {
+//    DPrint($e->getMessage());
+    DPrint('failure');
 }
 
 
