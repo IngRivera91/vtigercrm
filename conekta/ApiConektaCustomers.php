@@ -1,8 +1,6 @@
 <?php
 
-require_once dirname(__DIR__).'/vendor/autoload.php';
-require_once dirname(__DIR__).'/config.apiconekta.php';
-
+require_once('config.apiconekta.php');
 class ApiConektaCustomers
 {
     private $url;
