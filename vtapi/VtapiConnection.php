@@ -26,7 +26,7 @@ class VtapiConnection
         }
 
         if (!$this->generateSessionNameAndUserId()) {
-            throw new Exception('Error trying to generate the SessionName');
+            throw new Exception('Error trying to generate the SessionName and UserId');
         }
 
     }
