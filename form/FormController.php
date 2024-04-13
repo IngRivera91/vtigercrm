@@ -1,10 +1,12 @@
 <?php
 
+require dirname(__DIR__).'/vtapi/VtapiContacts.php';
+
 class FormController {
-    private $nombre;
-    private $apellido;
-    private $correo;
-    private $telefono;
+    public $nombre;
+    public $apellido;
+    public $correo;
+    public $telefono;
 
     public function __construct($data)
     {
@@ -16,7 +18,21 @@ class FormController {
 
     public function createContact()
     {
-        print_r($this);
+
+        try {
+            $Contacts = new VtapiContacts();
+            $Contacts->createNewContact(
+                $this->nombre,
+                $this->apellido,
+                $this->correo,
+                $this->telefono
+            );
+        } catch (Exception $e) {
+            print_r($e->getMessage());
+            ;
+        }
+
+        print_r('contacto creado'.ConfigurationVtapi::$url);
     }
 
 }
