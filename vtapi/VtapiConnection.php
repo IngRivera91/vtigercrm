@@ -53,7 +53,7 @@ class VtapiConnection
             return false;
         }
 
-        if (isset(json_decode($response->getBody())->error)) {
+        if ($this->existErrorResponse($response)) {
             return false;
         }
 
@@ -85,7 +85,7 @@ class VtapiConnection
             return false;
         }
 
-        if (isset(json_decode($response->getBody())->error)) {
+        if ($this->existErrorResponse($response)) {
             return false;
         }
 
@@ -93,5 +93,14 @@ class VtapiConnection
         $this->userId = json_decode($response->getBody())->result->userId;
 
         return true;
+    }
+
+    private function existErrorResponse($response): bool
+    {
+        if (isset(json_decode($response->getBody())->error)) {
+            return true;
+        }
+
+        return false;
     }
 }
