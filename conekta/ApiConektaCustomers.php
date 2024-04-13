@@ -1,10 +1,10 @@
 <?php
 
-require_once('config.apiconekta.php');
 class ApiConektaCustomers
 {
     private $url;
     private $bearerToken;
+
     public function __construct()
     {
         $this->url = ConfigApiConekta::$url;
@@ -21,7 +21,7 @@ class ApiConektaCustomers
         $headers = [
             'content-type' => 'application/x-www-form-urlencoded',
             'accept' => 'application/vnd.conekta-v2.1.0+json',
-            'Authorization' => 'Bearer '.$this->bearerToken
+            'Authorization' => 'Bearer ' . $this->bearerToken
         ];
 
         $options = [
@@ -53,7 +53,7 @@ class ApiConektaCustomers
         $headers = [
             'content-type' => 'application/x-www-form-urlencoded',
             'accept' => 'application/vnd.conekta-v2.1.0+json',
-            'Authorization' => 'Bearer '.$this->bearerToken
+            'Authorization' => 'Bearer ' . $this->bearerToken
         ];
 
         $options = [
@@ -80,7 +80,7 @@ class ApiConektaCustomers
         $headers = [
             'content-type' => 'application/json',
             'accept' => 'application/vnd.conekta-v2.1.0+json',
-            'Authorization' => 'Bearer '.$this->bearerToken
+            'Authorization' => 'Bearer ' . $this->bearerToken
         ];
 
         $request = new GuzzleHttp\Psr7\Request('GET', "{$this->url}/customers/{$otherPhone}", $headers);
