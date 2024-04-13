@@ -8,21 +8,27 @@ class CrearCustomerConektaHandler extends VTEventHandler
     {
         $moduleName = $entity->getModuleName();
         if ($moduleName == 'Contacts' && $eventType == 'vtiger.entity.beforesave') {
-            $idContacto = $entity->getId();
-            $camposContacto = $entity->getData();
 
-            //Estos son los campos del contacto:
-            echo '<pre>';
-            print_r($camposContacto);
-            echo '</pre>';
+//            $ConektaCustomer = new ApiConektaCustomers();
+//
+//            $otherPhone = $entity->get('otherphone');
+//            $firstName = $entity->get('firstName');
+//            $email = $entity->get('email');
+//            $phone = $entity->get('phone');
+//
+//            if ($otherPhone === "") {
+//                $otherPhone = $ConektaCustomer->createCustomer($firstName, $email, $phone);
+//                $entity->set('otherphone', $otherPhone);
+//            }
+//
+//            if ($otherPhone !== "") {
+//                if ($ConektaCustomer->customerExist($otherPhone)) {
+//                    $ConektaCustomer->updateCustomer($otherPhone, $firstName, $email, $phone);
+//                }else{
+//                    throw new Exception('URL cannot be empty');
+//                }
+//            }
 
-
-            //$entity->get('nombre_campo') para obtener el valor de un campo.
-            //$entity->set('nombre_campo', 'valor') para establecer el valor de un campo.
-
-            //Este exit sirve para ver en el navegador el output (echos) de arriba.
-            //Es necesario quitarlo para que al guardar el contacto en la vista de edición, regrese al usuario a la vista de detalle.
-            exit;
         }
     }
 }
