@@ -10,7 +10,10 @@
         }
     ],
     "autoload": {
-        "files": ["includes/Loader.php"]
+        "files": ["includes/Loader.php"],
+        "psr-4": {
+            "Vtiger\\": "/"
+        }
     },
     "minimum-stability": "stable",
     "require": {
