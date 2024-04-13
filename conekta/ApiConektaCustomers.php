@@ -2,11 +2,13 @@
 
 class ApiConektaCustomers
 {
+    private $client;
     private $url;
     private $bearerToken;
 
     public function __construct()
     {
+        $this->client = new GuzzleHttp\Client();
         $this->url = ConfigApiConekta::$url;
         $this->bearerToken = ConfigApiConekta::$bearerToken;
     }
@@ -16,8 +18,6 @@ class ApiConektaCustomers
      */
     public function createCustomer($firstName, $email, $phone): string
     {
-        $client = new GuzzleHttp\Client();
-
         $headers = [
             'content-type' => 'application/x-www-form-urlencoded',
             'accept' => 'application/vnd.conekta-v2.1.0+json',
@@ -35,7 +35,7 @@ class ApiConektaCustomers
         $request = new GuzzleHttp\Psr7\Request('POST', "{$this->url}/customers", $headers);
 
         try {
-            $response = $client->send($request, $options);
+            $response = $this->client->send($request, $options);
         } catch (GuzzleHttp\Exception\GuzzleException $e) {
             throw new Exception('Error al registrar en conekta');
         }
@@ -48,8 +48,6 @@ class ApiConektaCustomers
      */
     public function updateCustomer($otherPhone, $firstName, $email, $phone)
     {
-        $client = new GuzzleHttp\Client();
-
         $headers = [
             'content-type' => 'application/x-www-form-urlencoded',
             'accept' => 'application/vnd.conekta-v2.1.0+json',
@@ -67,7 +65,7 @@ class ApiConektaCustomers
         $request = new GuzzleHttp\Psr7\Request('PUT', "{$this->url}/customers/{$otherPhone}", $headers);
 
         try {
-            $response = $client->send($request, $options);
+            $response = $this->client->send($request, $options);
         } catch (GuzzleHttp\Exception\GuzzleException $e) {
             throw new Exception('Error al actualizar en conekta');
         }
@@ -75,8 +73,6 @@ class ApiConektaCustomers
 
     public function customerExist($otherPhone): bool
     {
-        $client = new GuzzleHttp\Client();
-
         $headers = [
             'content-type' => 'application/json',
             'accept' => 'application/vnd.conekta-v2.1.0+json',
@@ -86,7 +82,7 @@ class ApiConektaCustomers
         $request = new GuzzleHttp\Psr7\Request('GET', "{$this->url}/customers/{$otherPhone}", $headers);
 
         try {
-            $response = $client->send($request);
+            $response = $this->client->send($request);
         } catch (GuzzleHttp\Exception\GuzzleException $e) {
             return false;
         }
