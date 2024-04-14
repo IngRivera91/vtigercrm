@@ -2,4 +2,5 @@
 vendor/*
 config.vtapi.php
 config.apiconekta.php
+config.inc.php
 test/templates_c/*
